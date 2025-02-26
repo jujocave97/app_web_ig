@@ -39,8 +39,16 @@
         }
         .card-footer {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            flex-direction: row; /* Alineación horizontal */
+            gap: 10px; /* Espacio entre los botones */
+            align-items: center; /* Alineación vertical centrada */
+        }
+        /* Estilos para las imágenes */
+        .card-body img {
+            width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+            height: 300px; /* Establecer una altura fija */
+            object-fit: cover; /* Asegura que la imagen se recorte de forma adecuada */
+            border-radius: 8px; /* Esquinas redondeadas opcionales */
         }
     </style>
 </head>
@@ -48,7 +56,6 @@
 
     <!-- Header fijo -->
     <div class="header">
-        
         <h1 class="m-0">{{ auth()->user()->name }}</h1>
         <div>
             <a href="{{ route('post.showCreatePost', ['id' => $user->id]) }}" class="btn btn-primary btn-sm">Crear Post</a>
@@ -84,7 +91,7 @@
                     <!-- Botón para ver comentarios -->
                     <form action="{{ route('post.comments', ['id' => $post->id]) }}" method="GET">
                         @csrf
-                        <button type="submit" class="btn btn-secondary btn-sm mt-2">{{ $post->comments_count }} comentarios </button>
+                        <button type="submit" class="btn btn-secondary btn-sm">{{ $post->comments_count }} comentarios </button>
                     </form>
 
                     <!-- Botón para eliminar si es el dueño -->
@@ -92,7 +99,7 @@
                         <form action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm mt-2" onclick="return confirm('¿Estás seguro de eliminar este post?')">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este post?')">
                                 Eliminar
                             </button>
                         </form>
