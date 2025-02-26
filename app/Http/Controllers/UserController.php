@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->password = $datosUsuario['password'];
         
         $user->save();
-        return redirect()->route('user.showLogin');
+        return redirect()->route('login');
         
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         );
 
         if ($validator->fails()) {
-            return redirect()->route('user.showLogin')->withErrors($validator)->withInput();
+            return redirect()->route('login')->withErrors($validator)->withInput();
         }
 
         $userEmail = $request->get('email');
@@ -87,14 +87,14 @@ class UserController extends Controller
      // Logout
      public function doLogout() {
         Auth::logout();
-        return redirect()->route('user.showLogin');
+        return redirect()->route('login');
     }
 
      // Show index
      public function showIndex($id) {
         
         if($id == "") {
-            return redirect()->route('user.showLogin');
+            return redirect()->route('login');
         }
         
         $user = User::findOrFail($id); // Buscar el usuario

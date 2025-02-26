@@ -4,7 +4,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // RUTA PARA ENRUTAR /user/
-Route::get('/login', [UserController::class, 'showLogin'])->name('user.showLogin'); // IMPORTANTE PARA LARAVEL
+//Route::get('/login', [UserController::class, 'showLogin'])->name('user.showLogin'); // IMPORTANTE PARA LARAVEL
 Route::get('/register', [UserController::class, 'registerView'])->name('user.showRegister');
 
 Route::get('/login', [UserController::class, 'showLogin'])->name('login'); // la uso otra vez porque laravel dice que no está definida (?)

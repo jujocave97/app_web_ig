@@ -16,7 +16,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background-color:rgb(155, 195, 238);
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             padding: 15px 20px;
             display: flex;
@@ -33,7 +33,7 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
         .card {
-            background-color: #cce5ff;
+            background-color:rgb(155, 195, 238);
             border: none;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -78,10 +78,11 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h2 class="card-title">{{ $post->title }}</h2>
-                    <p class="card-text">{{ $post->description }}</p>
                     @if ($post->image_path)
                         <img src="{{ asset('storage/' . $post->image_path) }}" alt="Imagen del post">
                     @endif
+                    <p class="card-text">{{ $post->description }}</p>
+                    
                 </div>
 
                 <!-- Sección de interacciones -->

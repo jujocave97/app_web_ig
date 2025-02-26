@@ -17,26 +17,57 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background-color:rgb(155, 195, 238);
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            
         }
 
         /* Contenedor principal de comentarios */
         .comments-container {
             margin-top: 80px;
+            text-align: center;
+            
         }
 
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            
+        }
+
+        /* Estilo para la imagen, asegurando que nunca sea más grande que el contenedor */
+        .post-image {
+            width: 60%; /* 60% del contenedor, puedes ajustar el valor */
+            height: auto; /* Mantiene la proporción de la imagen */
+            max-width: 400px; /* Tamaño máximo para que no sea demasiado grande */
+            max-height: 500px; /* Tamaño máximo de la altura */
+            object-fit: cover; /* Mantiene la proporción y cubre el contenedor */
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 2%;
+        }
+
+        /* Card para comentarios */
         .comment-card {
-            background-color: #cce5ff; /* Azul celeste */
+            background-color:rgb(155, 195, 238); /* Azul celeste */
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%; /* Para que ocupe todo el ancho disponible */
+            max-width: 400px; /* Máximo ancho que puede tener el textarea */
+            height: 120px; /* Altura específica para el textarea */
+            resize: none; /* Impide que el usuario pueda redimensionar el textarea */
+            margin: 0 auto; /* Centra el textarea en su contenedor */
+            display: block; /* Impide que el usuario pueda redimensionar el textarea */
         }
 
         .comment-card p {
@@ -45,16 +76,11 @@
 
         /* Formulario de comentario */
         .comment-form {
-            background-color: white;
+            background-color:rgb(155, 195, 238); /* Azul celeste */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-        }
-
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
         }
     </style>
 </head>
@@ -62,17 +88,20 @@
 
     <!-- Header fijo -->
     <div class="header">
-        <h1 class="m-0">Comentarios de {{ $post->title }}</h1>
+        <h1 class="m-0">{{ $post->title }}</h1>
         <?php
             $idName = $post->belongs_to;
         ?>
         <a href="{{ route('user.showIndex', ['id' => $idName]) }}" class="btn btn-outline-secondary btn-sm">Volver</a>
-
     </div>
 
     <!-- Contenedor principal -->
     <div class="container comments-container">
         <div class="form-container">
+            <h3>{{ $post->description }}</h3>
+            @if ($post->image_path)
+                <img src="{{ asset('storage/' . $post->image_path) }}" alt="Imagen del post" class="post-image">
+            @endif
             <div class="comment-form">
                 <h3>Comentar</h3>
                 <form action="{{ route('post.createComment', ['id' => $post->id]) }}" method="POST">
@@ -92,7 +121,6 @@
                     $user = DB::table('users')->where('id', $idName)->first();
                 ?>
                 <p><strong>{{ $user->name }}</strong></p>
-
                 <p>{{ $comment->comment }}</p>
                 <p><small>{{ $comment->created_at }}</small></p>
 
