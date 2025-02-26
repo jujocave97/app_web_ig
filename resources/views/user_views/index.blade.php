@@ -50,6 +50,14 @@
             object-fit: cover; /* Asegura que la imagen se recorte de forma adecuada */
             border-radius: 8px; /* Esquinas redondeadas opcionales */
         }
+
+        /* Estilo para el botón "Eliminar Usuario" */
+        .delete-user-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
@@ -109,6 +117,14 @@
             @endforeach
         </div>
     </div>
+
+    <!-- Botón Eliminar Usuario -->
+    <form action="{{ route('user.delete', ['id' => auth()->id()]) }}" method="POST" class="delete-user-btn">
+        @csrf
+        @method('DELETE')  <!-- Esto simula una solicitud DELETE -->
+        <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de eliminar tu cuenta?')">Eliminar Usuario</button>
+    </form>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

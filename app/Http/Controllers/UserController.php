@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -104,9 +105,17 @@ class UserController extends Controller
 
     // darse de baja
     public function unsubscribe($id) {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+    // Elimina todos los comentarios asociados al usuario
+        Comments::where('user_id', $id)->delete();
+    // Elimina todos los posts asociados al usuario
+        Post::where('belongs_to', $id)->delete();
         $user->delete();
-        $this->doLogout();
+        Auth::logout();
+       // Redirigir al login después de eliminar la cuenta
+        return redirect()->route('login')->with('message', 'Tu cuenta ha sido eliminada correctamente.');
+
+
     }
 
     
