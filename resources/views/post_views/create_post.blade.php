@@ -52,7 +52,7 @@
     <!-- Formulario de creación de post -->
     <div class="form-container">
         <div class="form-card">
-            <form action="{{ route('post.createPost', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('post.createPost', ['id' => auth()->id()]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h3 class="text-center mb-4">Crear un nuevo post</h3>
 
